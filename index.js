@@ -1,4 +1,4 @@
-require("dotenv").config();
+//require("dotenv").config();
 const express = require('express');
 const http = require("http");
 const { neon } = require("@neondatabase/serverless");
@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
-
+const PORT = 4000;
 dotenv.config();
 
 const app = express();
@@ -83,8 +83,7 @@ const pool = new Pool({
   app.get('/profile', authenticateJWT, (req, res) => {
     res.json({ message: 'This is a protected route', user: req.user });
   });
-  
-  const PORT = 4000;
+
   // Start the server
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
