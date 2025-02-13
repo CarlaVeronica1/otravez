@@ -29,6 +29,11 @@ const pool = new Pool({
     });
   };
   
+ //Server connected
+ app.get('/', (req, res) => {
+    res.status(200).json('Main page');
+  })
+
   // Register a new user
   app.post('/register', async (req, res) => {
     const { email, password } = req.body;
