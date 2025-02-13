@@ -53,6 +53,18 @@ const pool = new Pool({
     res.status(201).json({ message: 'User registered successfully' });
   });
   
+  //Get all users
+  app.get('/usuarios',async (req,res)=>{
+    try{
+    const result=await pool.query('SELECT * FROM usuarios');
+    res.json(result.rows); 
+    }catch(err) {
+        console.error(err);
+        res.status(500).json({ message: 'database error' });
+
+    } 
+  })
+
   // Login
   app.post('/login', async (req, res) => {
     const { email, password } = req.body;
