@@ -34,7 +34,7 @@ const pool = new Pool({
     const { email, password } = req.body;
   
     // Check if the email already exists
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
     if (result.rows.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });
     }
@@ -43,7 +43,7 @@ const pool = new Pool({
     const hashedPassword = await bcrypt.hash(password, 10);
   
     // Insert the new user into the database
-    await pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, hashedPassword]);
+    await pool.query('INSERT INTO usuarios (email, contasena) VALUES ($1, $2)', [email, hashedPassword]);
   
     res.status(201).json({ message: 'User registered successfully' });
   });
@@ -53,7 +53,7 @@ const pool = new Pool({
     const { email, password } = req.body;
   
     // Find the user in the database
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
     const user = result.rows[0];
   
     if (!user) {
@@ -61,7 +61,7 @@ const pool = new Pool({
     }
   
     // Compare the password with the hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.contasena);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
