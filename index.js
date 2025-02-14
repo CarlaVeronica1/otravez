@@ -67,10 +67,14 @@ const pool = new Pool({
 
   // Login
   app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+
+    //const email = req.body.email;
+    //const password=req.body.password;
+    const email = req.params.email;
+    const password=req.params.password;
   
     // Find the user in the database
-    const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+    const result = await pool.query('SELECT * FROM usuarios WHERE email = ($1)', [email]);
     const user = result.rows[0];
   
     if (!user) {
