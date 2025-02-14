@@ -67,7 +67,7 @@ const pool = new Pool({
 
   // Login
   app.post('/login', async (req, res) => {
-
+    console.log(req.body.params)
     //const email = req.body.email;
     //const password=req.body.password;
     const email = req.params.email;
