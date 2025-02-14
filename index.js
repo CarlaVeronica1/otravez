@@ -67,10 +67,11 @@ const pool = new Pool({
 
   // Login
   app.post('/login', async (req, res) => {
-    console.log(req.body.params)
+    console.log(req.body.params);
     //const email = req.body.email;
     //const password=req.body.password;
     const email = req.params.email;
+    console.log(req.params.email);
     const password=req.params.password;
   
     // Find the user in the database
