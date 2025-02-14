@@ -78,7 +78,7 @@ const pool = new Pool({
     const user = result.rows[0];
   
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: 'Invalid email or password 2' });
     }
   
     // Compare the password with the hashed password
