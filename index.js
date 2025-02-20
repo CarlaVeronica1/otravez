@@ -79,7 +79,7 @@ const pool = new Pool({
     const result = await pool.query("SELECT * FROM usuarios WHERE email=$1", [email]);
     const user = result.rows[0];
   
-    if (user.row[0].length === 0) {
+    if (user.row.length === 0) {
       return res.status(400).json({ message: 'Invalid email or password 2' });
     }
     // Compare the password with the hashed password
