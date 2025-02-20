@@ -67,21 +67,21 @@ const pool = new Pool({
 
   // Login
   app.post('/login', async (req, res) => {
-    console.log(req.body.params);
-    //const email = req.body.email;
-    //const password=req.body.password;
-    const email = req.params.email;
-    console.log(req.params.email);
-    const password=req.params.password;
+    console.log(req.body);
+    const email = req.body.email;
+    const password=req.body.password;
+    //const email = req.params.email;
+    
+    //console.log(req.params.email);
+    //const password=req.params.password;
   
     // Find the user in the database
-    const result = await pool.query('SELECT * FROM usuarios WHERE email = ($1)', [email]);
+    const result = await pool.query("SELECT * FROM usuarios WHERE email=$1", [email]);
     const user = result.rows[0];
   
-    if (!user) {
+    if (user.row[0].length === 0) {
       return res.status(400).json({ message: 'Invalid email or password 2' });
     }
-  
     // Compare the password with the hashed password
     const isMatch = await bcrypt.compare(password, user.contasena);
     if (!isMatch) {
