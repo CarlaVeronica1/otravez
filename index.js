@@ -83,7 +83,7 @@ const pool = new Pool({
       return res.status(400).json({ message: 'Invalid email or password 2' });
     }
     // Compare the password with the hashed password
-    const isMatch = await bcrypt.compare(password, user.contasena);
+    const isMatch = await bcrypt.compare(password, user.contrasena);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
