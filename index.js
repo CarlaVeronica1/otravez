@@ -48,7 +48,7 @@ const pool = new Pool({
     const hashedPassword = await bcrypt.hash(password, 10);
   
     // Insert the new user into the database
-    await pool.query('INSERT INTO usuarios (email, contasena,empleado) VALUES ($1, $2, $3)', [email, hashedPassword, intempleado]);
+    await pool.query('INSERT INTO usuarios (email, contrasena,empleado) VALUES ($1, $2, $3)', [email, hashedPassword, intempleado]);
   
     res.status(201).json({ message: 'User registered successfully' });
   });
