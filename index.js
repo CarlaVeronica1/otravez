@@ -6,11 +6,27 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
+const helmet = require('helmet');
+const cors =require('cors');
+import { rateLimit } from 'express-rate-limit'
+
 const PORT = 4000;
 dotenv.config();
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	// store: ... , // Redis, Memcached, etc. See below.
+})
+
 const app = express();
 app.use(express.json());
+app.use(helmet());
+app.use(limiter);
+app.use(cors());
+
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
